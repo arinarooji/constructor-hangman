@@ -1,0 +1,22 @@
+{
+  "name": "constructor-hangman",
+  "version": "1.0.0",
+  "description": "Play hangman in your  Terminal!",
+  "main": "hangman.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arinarooji/constructor-hangman.git"
+  },
+  "author": "Keivon Arooji",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/arinarooji/constructor-hangman/issues"
+  },
+  "homepage": "https://github.com/arinarooji/constructor-hangman#readme",
+  "dependencies": {
+    "inquirer": "^3.3.0"
+  }
+}
