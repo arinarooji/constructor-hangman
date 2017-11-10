@@ -2,9 +2,7 @@
 var inquirer = require('inquirer');
 
 //Word progress, score count, guess count
-var progress = '';
-var score = 0;
-var guesses = 15;
+var progress = '', score = 0, guesses = 15;
 
 //Track where user correctly guessed letters in a word
 var correctIndices = [];
@@ -13,18 +11,10 @@ var correctIndices = [];
 var randomWord = Word();
 
 //Inquirer prompt object
-var question = {
-    type: 'input',
-    message: 'Guess a letter!',
-    name: 'letter',
-    default: 'a'
-}
+var question = { type: 'input', message: 'Guess a letter!', name: 'letter', default: 'a' }
 
-//Receive user input, then...(promise)
-inquirer.prompt([question]).then(response => {
-    //Invoke Game() with user response
-    Game(response);
-});
+//Receive user input, then...(promise) invoke Game() with user response
+inquirer.prompt([question]).then(response => { Game(response); });
 
 //Game: Takes an inquirer response
 function Game(response) {
@@ -42,7 +32,7 @@ function Game(response) {
 
     //FIX THIS REPETITION======================
     //If the progress string has no more underscores, increment score and generate new randomWord
-    if (!progress.includes('_')) {
+    if (progress === randomWord) {
         score++;
         guesses = 15;
         correctIndices = [];
@@ -61,10 +51,8 @@ function Game(response) {
     }
     //FIX THIS REPETITION======================
 
-    //Prompt user for next letter guess
-    inquirer.prompt(question).then(response => {
-        Game(response);
-    });
+    //Prompt user for next letter guess, invoke Game() with user response
+    inquirer.prompt(question).then(response => { Game(response); });
 }
 
 //Word: Generates and returns a random word
@@ -88,12 +76,8 @@ function Letter(letter, word) {
                 correctIndices.push(i);
             }
             //Else if index not correctly guessed before, replace index with underscore
-            else if(!correctIndices.includes(i)) {
-                splitWord[i] = ' _ ';
-            }
+            else if(!correctIndices.includes(i)) splitWord[i] = ' _ ';
         }
-        //Return updated string
-        this.word = splitWord.join('');
-        return this.word;
+        return this.word = splitWord.join(''); //Return updated string
     }
 }
