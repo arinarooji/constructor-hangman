@@ -40,6 +40,7 @@ function Game(response) {
     console.log('Guesses remaining: ', guesses);
     console.log(progress);
 
+    //FIX THIS REPETITION======================
     //If the progress string has no more underscores, increment score and generate new randomWord
     if (!progress.includes('_')) {
         score++;
@@ -58,6 +59,7 @@ function Game(response) {
         console.log('Out of guesses :( Current score:', score);
         console.log('Next word...');
     }
+    //FIX THIS REPETITION======================
 
     //Prompt user for next letter guess
     inquirer.prompt(question).then(response => {
