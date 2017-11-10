@@ -16,6 +16,34 @@ var question = { type: 'input', message: 'Guess a letter!', name: 'letter', defa
 //Receive user input, then...(promise) invoke Game() with user response
 inquirer.prompt([question]).then(response => { Game(response); });
 
+
+//Word: Generates and returns a random word
+function Word() {
+    var wordArray = ['LIZARD', 'BEAR', 'SQUID', 'CAMEL', 'TURTLE', 'FOX', 'OSTRICH', 'PLATYPUS', 'CROCODILE', 'KANGAROO', 'BANDICOOT'];
+    var randomIndex = Math.floor(Math.random() * wordArray.length);
+    return wordArray[randomIndex];
+}
+
+//Letter: Takes in a letter and a word. Check method compares letter to all letters within the word
+function Letter(letter, word) {
+    this.letter = letter;
+    this.word   = word;
+    //Check() method: iterates through word and checks if it contains the letter guessed.
+    this.check  = () => {
+        var splitWord = this.word.split('');
+        for (var i = 0; i < this.word.length; i++) {
+            //True? Retain letter and store index correctly guessed
+            if(this.letter.toUpperCase() === splitWord[i]) {
+                splitWord[i] = this.letter.toUpperCase();
+                correctIndices.push(i);
+            }
+            //Else if index not correctly guessed before, replace index with underscore
+            else if(!correctIndices.includes(i)) splitWord[i] = ' _ ';
+        }
+        return this.word = splitWord.join(''); //Return updated string
+    }
+}
+
 //Game: Takes an inquirer response
 function Game(response) {
     //Creates a new letter object with response.letter and the current randomWord (for comparison)
@@ -53,31 +81,4 @@ function Game(response) {
 
     //Prompt user for next letter guess, invoke Game() with user response
     inquirer.prompt(question).then(response => { Game(response); });
-}
-
-//Word: Generates and returns a random word
-function Word() {
-    var wordArray = ['LIZARD', 'BEAR', 'SQUID', 'CAMEL', 'TURTLE', 'FOX', 'OSTRICH', 'PLATYPUS', 'CROCODILE', 'KANGAROO', 'BANDICOOT'];
-    var randomIndex = Math.floor(Math.random() * wordArray.length);
-    return wordArray[randomIndex];
-}
-
-//Letter: Takes in a letter and a word. Check method compares letter to all letters within the word
-function Letter(letter, word) {
-    this.letter = letter;
-    this.word   = word;
-    //Check() method: iterates through word and checks if it contains the letter guessed.
-    this.check  = () => {
-        var splitWord = this.word.split('');
-        for (var i = 0; i < this.word.length; i++) {
-            //True? Retain letter and store index correctly guessed
-            if(this.letter.toUpperCase() === splitWord[i]) {
-                splitWord[i] = this.letter.toUpperCase();
-                correctIndices.push(i);
-            }
-            //Else if index not correctly guessed before, replace index with underscore
-            else if(!correctIndices.includes(i)) splitWord[i] = ' _ ';
-        }
-        return this.word = splitWord.join(''); //Return updated string
-    }
 }
