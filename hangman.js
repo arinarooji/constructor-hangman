@@ -13,6 +13,7 @@ var question = {
     default: 'a'
 }
 
+//Prompt
 inquirer.prompt([question]).then(response => {
   Game(response);
 });
@@ -20,15 +21,20 @@ inquirer.prompt([question]).then(response => {
 function Game(response) {
     var response = new Letter(response.letter, randomWord);
     progress = response.check();
-    if (progress.includes('_')) {
-        console.log('Guesses remaining: ', guesses);
-        console.log(progress);
-    }
-    else {
+    if (!randomWord.includes(response.letter)) guesses--;
+    console.log('Guesses remaining: ', guesses);
+    console.log(progress);
+    if (!progress.includes('_')) {
         score++;
         correctIndices = [];
         randomWord = Word();
-        console.log(progress, ', Great job! Current score: ', score);
+        console.log('Great job! Current score:', score);
+        console.log('Next word...');
+    }
+    else if (guesses < 1) {
+        score--;
+        console.log("Out of guesses :( the word was", randomWord);
+        console.log('Current score:', score);
         console.log('Next word...');
     }
     inquirer.prompt(question).then(response => {
@@ -36,9 +42,9 @@ function Game(response) {
     });
 }
 
-//Word:  Used to create an object representing the current word the user is attempting to guess. This should contain word specific logic and data.
+//Word:  Generates a random word
 function Word() {
-    var wordArray = ['hello', 'hi', 'red'];
+    var wordArray = ['LIZARD', 'BEAR', 'SQUID', 'CAMEL', 'TURTLE', 'FOX', 'OSTRICH', 'PLATYPUS', 'CROCODILE', 'KANGAROO', 'BANDICOOT'];
     var randomIndex = Math.floor(Math.random() * wordArray.length);
     return wordArray[randomIndex];
 }
@@ -50,19 +56,19 @@ function Letter(letter, word) {
     
     //Check() method: iterates through word and checks if it contains the letter guessed.
     this.check  = () => {
-        var splitter = this.word.split('');
+        var splitWord = this.word.split('');
         for (var i = 0; i < this.word.length; i++) {
             //True? Retain letter and store index correctly guessed
-            if(this.letter === splitter[i]) {
-                splitter[i] = this.letter;
+            if(this.letter.toUpperCase() === splitWord[i]) {
+                splitWord[i] = this.letter.toUpperCase();
                 correctIndices.push(i);
             }
             //Else if index not correctly guessed before, replace index with underscore
             else if(!correctIndices.includes(i)) {
-                splitter[i] = ' _ ';
+                splitWord[i] = ' _ ';
             }
         }
-        this.word = splitter.join('');
+        this.word = splitWord.join('');
         return this.word;
     }
 }
