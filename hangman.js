@@ -1,11 +1,8 @@
 //Inquirer NPM required
 var inquirer = require('inquirer');
 
-//Word progress, score count, guess count
-var progress = '', score = 0, guesses = 15;
-
-//Track where user correctly guessed letters in a word
-var correctIndices = [];
+//Word progress, score count, guess count, correctIndices[] (contains all index values user correctly guessed)
+var progress = '', score = 0, guesses = 15, correctIndices = [];
 
 //Generate random word
 var randomWord = Word();
