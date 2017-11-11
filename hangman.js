@@ -35,7 +35,7 @@ function Letter(letter, word) {
                 correctIndices.push(i);
             }
             //Else if index not correctly guessed before, replace index with underscore
-            else if(!correctIndices.includes(i)) splitWord[i] = ' _ ';
+            else if(correctIndices.indexOf(i) === -1) splitWord[i] = ' _ ';
         }
         return this.word = splitWord.join(''); //Return updated string
     }
@@ -49,7 +49,7 @@ function Game(response) {
     progress = response.check();
 
     //If user's letter guess (response.letter) is not in the randomWord, decrement guesses
-    if (!randomWord.includes(response.letter.toUpperCase())) guesses--;
+    if (randomWord.indexOf(response.letter.toUpperCase()) === -1) guesses--;
 
     //Log guessesRemaining and user's progress
     console.log('Guesses remaining: ', guesses);
