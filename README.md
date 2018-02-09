@@ -1,4 +1,5 @@
 # Hangman: Command-Line Interface
+![ezgif com-optimize 1](https://user-images.githubusercontent.com/30301389/36011024-987a4656-0d22-11e8-9823-7837cf715142.gif)
 ### An animal-themed hangman game that is played from your terminal!
 
 ### Guide
